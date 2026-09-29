@@ -2,14 +2,15 @@ import { getSite } from "@/lib/site";
 import { db } from "@/lib/db";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { PlayheadTracker } from "@/components/ui/PlayheadTracker";
+import { FloatingContactPill } from "@/components/ui/FloatingContactPill";
 import { NavShell } from "@/components/navigation/NavShell";
 import { FooterShell } from "@/components/navigation/FooterShell";
-import { HeroOpening } from "@/components/hero/HeroOpening";
-import { StatementSection } from "@/components/home/StatementSection";
-import { TheReel } from "@/components/home/TheReel";
-import { ProjectIndexSection } from "@/components/home/ProjectIndexSection";
+import { RooHero } from "@/components/hero/RooHero";
+import { ManifestoSection } from "@/components/home/ManifestoSection";
+import { AlternatingExhibition } from "@/components/home/AlternatingExhibition";
+import { PinnedStorytellingTimeline } from "@/components/home/PinnedStorytellingTimeline";
+import { BrandPillarsBento } from "@/components/home/BrandPillarsBento";
 import { CapabilitiesSystem } from "@/components/home/CapabilitiesSystem";
-import { CreativeProcess } from "@/components/home/CreativeProcess";
 import { StudioTeaser } from "@/components/home/StudioTeaser";
 
 export default async function HomePage() {
@@ -25,10 +26,6 @@ export default async function HomePage() {
   } catch {
     projects = [];
   }
-
-  // Filter featured projects for The Reel
-  const featuredProjects = projects.filter((p) => p.featured);
-  const reelProjects = featuredProjects.length > 0 ? featuredProjects : projects.slice(0, 3);
 
   // Load Capabilities from DB
   let capabilities: any[] = [];
@@ -51,51 +48,50 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[var(--bg)] text-[var(--text)]">
+    <div className="relative min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-x-hidden">
       <CustomCursor />
-      
+      <FloatingContactPill />
+
       <PlayheadTracker
         sections={[
           { id: "hero", label: "01 HERO" },
-          { id: "statement", label: "02 PRINCIPLE" },
-          { id: "reel", label: "03 THE REEL" },
-          { id: "index", label: "04 INDEX" },
-          { id: "capabilities", label: "05 SYSTEM" },
-          { id: "process", label: "06 PROCESS" },
+          { id: "manifesto", label: "02 MANIFESTO" },
+          { id: "work", label: "03 EXHIBITION" },
+          { id: "pipeline", label: "04 PIPELINE" },
+          { id: "pillars", label: "05 PILLARS" },
+          { id: "capabilities", label: "06 SYSTEM" },
           { id: "studio", label: "07 STUDIO" },
         ]}
       />
 
-      <NavShell brandName={site.brandName} />
+      <NavShell brandName="ROO EDITS" />
 
       <main className="space-y-0">
-        <HeroOpening
-          headline={site.heroHeadline}
-          tagline={site.tagline}
-          brandName={site.brandName}
-        />
+        {/* 1. Complete Redesigned Hero with 3D Canvas */}
+        <RooHero brandName="ROO EDITS" tagline={site.tagline} />
 
-        <StatementSection
-          statement={site.statementText}
-          brandName={site.brandName}
-        />
+        {/* 2. Visual Manifesto & Live Metrics Bar */}
+        <ManifestoSection />
 
-        {reelProjects.length > 0 && <TheReel projects={reelProjects} />}
+        {/* 3. Alternating Featured Exhibition */}
+        {projects.length > 0 && <AlternatingExhibition projects={projects} />}
 
-        {projects.length > 0 && <ProjectIndexSection projects={projects} />}
+        {/* 4. Scroll-Driven Storytelling Timeline Sequence */}
+        <PinnedStorytellingTimeline />
 
+        {/* 5. Core Architectural Pillars Bento */}
+        <BrandPillarsBento />
+
+        {/* 6. Capabilities System Matrix */}
         {capabilities.length > 0 && <CapabilitiesSystem capabilities={capabilities} />}
 
-        <CreativeProcess />
-
-        <StudioTeaser
-          founderName={site.founderName}
-          founderBio={site.founderBio}
-        />
+        {/* 7. Studio & Leadership Teaser */}
+        <StudioTeaser founderName={site.founderName} founderBio={site.founderBio} />
       </main>
 
+      {/* 8. Closing Frame Footer */}
       <FooterShell
-        brandName={site.brandName}
+        brandName="ROO EDITS"
         closingHeadline={site.footerClosing}
         contactEmail={site.contactEmail}
       />
