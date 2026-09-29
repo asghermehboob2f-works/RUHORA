@@ -1,0 +1,57 @@
+/* RUHORA Design Tokens — Strict Specification */
+
+:root {
+  /* Colors: dark-first, warm neutrals — never pure black, never blue-black */
+  --bg: #0B0B0C;            /* page base */
+  --bg-raised: #111113;     /* panels, dropdowns, elevated surfaces */
+  --bg-sunken: #080809;     /* letterbox, footer, frame inset */
+  --line: rgba(236, 234, 230, 0.09);        /* hairlines */
+  --line-strong: rgba(236, 234, 230, 0.18); /* prominent borders */
+  --text: #ECEAE6;          /* soft warm white */
+  --text-muted: #8E8C88;    /* secondary copy */
+  --text-faint: #5A5956;    /* timestamps, ticks, crop marks */
+  --accent: #C9B99A;        /* champagne accent — editable via SiteSetting */
+  --signal: #E5432D;        /* recording red — strictly for REC dot and error states */
+
+  /* Motion Tokens */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);      /* reveals, entrances */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);  /* cuts, wipes */
+  --ease-snap: cubic-bezier(0.32, 0.72, 0, 1);    /* menus, cursor movement */
+
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 700ms;
+  --dur-scene: 1100ms;
+
+  /* Geometry */
+  --radius: 0px;
+  --radius-input: 2px;
+  --max-width: 1680px;
+
+  /* Typography Scale Fluid Clamps */
+  --font-display-xl: clamp(3.5rem, 10vw + 1rem, 12rem);
+  --font-display: clamp(2.5rem, 6vw, 6.5rem);
+  --font-h1: clamp(2rem, 4vw, 4rem);
+  --font-h2: clamp(1.5rem, 2.5vw, 2.5rem);
+  --font-h3: clamp(1.125rem, 1.4vw, 1.5rem);
+  --font-body-lg: 1.125rem;
+  --font-body: 1rem;
+  --font-caption: 0.875rem;
+  --font-meta: 0.6875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms !important;
+    --dur-base: 0ms !important;
+    --dur-slow: 0ms !important;
+    --dur-scene: 0ms !important;
+  }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

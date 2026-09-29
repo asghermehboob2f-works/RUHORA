@@ -1,0 +1,233 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String
+  passwordHash String
+  role         String        @default("EDITOR") // SUPERADMIN, ADMIN, EDITOR
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  activityLogs ActivityLog[]
+}
+
+model SiteSetting {
+  id                String   @id @default("site_config")
+  brandName         String   @default("RUHORA")
+  tagline           String   @default("Obsessed with the quality of the frame.")
+  heroHeadline      String   @default("WE CUT. WE SHAPE. WE MAKE VISUALS MOVE.")
+  statementText     String   @default("A visual production studio dedicated to the craft of the edit.")
+  accentColor       String   @default("#C9B99A")
+  contactEmail      String   @default("inquiry@ruhora.com")
+  footerClosing     String   @default("HAVE SOMETHING WORTH MAKING?")
+  founderName       String?
+  founderBio        String?
+  founderPhotoUrl   String?
+  founderSocials    String?  // JSON string
+  seoDefaultTitle   String   @default("RUHORA — Visual Production Studio")
+  seoDefaultDesc    String   @default("Digital flagship of a premium creative editing, post-production and AI visual production studio.")
+  updatedAt         DateTime @updatedAt
+}
+
+model NavigationItem {
+  id           String   @id @default(cuid())
+  label        String
+  href         String
+  displayOrder Int      @default(0)
+  isExternal   Boolean  @default(false)
+  isCta        Boolean  @default(false)
+  isVisible    Boolean  @default(true)
+}
+
+model Project {
+  id             String         @id @default(cuid())
+  title          String
+  slug           String         @unique
+  year           String
+  category       String
+  aspectRatio    String         @default("16:9")
+  layoutVariant  String         @default("FULLBLEED") // FULLBLEED, ASYMMETRIC, VERTICAL, SPLIT, COMPACT
+  summary        String?
+  heroMediaUrl   String?
+  heroPosterUrl  String?
+  thumbnailUrl   String?
+  hoverVideoUrl  String?
+  featured       Boolean        @default(false)
+  published      Boolean        @default(false)
+  isDemo         Boolean        @default(false)
+  displayOrder   Int            @default(0)
+  
+  // SEO
+  seoTitle       String?
+  seoDescription String?
+  ogImageUrl     String?
+  noIndex        Boolean        @default(false)
+
+  // Relationships
+  clientId       String?
+  client         Client?        @relation(fields: [clientId], references: [id])
+  capabilities   ProjectCapability[]
+  teamMembers    ProjectTeamMember[]
+  blocks         ProjectBlock[]
+  mediaAssets    ProjectMedia[]
+  
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model ProjectBlock {
+  id           String   @id @default(cuid())
+  projectId    String
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type         String   // "Hero", "Video", "Image", "Gallery", "Text", "Quote", "BeforeAfter", "FullWidthMedia", "TwoColumnMedia", "ProjectDetails", "Credits", "CTA"
+  content      String   // JSON payload string strictly validated by Zod
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Client {
+  id           String    @id @default(cuid())
+  name         String
+  logoUrl      String?
+  websiteUrl   String?
+  description  String?
+  displayOrder Int       @default(0)
+  isVisible    Boolean   @default(true)
+  isDemo       Boolean   @default(false)
+  projects     Project[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Capability {
+  id           String              @id @default(cuid())
+  name         String
+  slug         String              @unique
+  category     String              // "Production", "AI Visuals", "Post"
+  description  String
+  deliverables String              // JSON array of strings
+  displayOrder Int                 @default(0)
+  isVisible    Boolean             @default(true)
+  projects     ProjectCapability[]
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+}
+
+model ProjectCapability {
+  projectId    String
+  capabilityId String
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  capability   Capability @relation(fields: [capabilityId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, capabilityId])
+}
+
+model TeamMember {
+  id             String              @id @default(cuid())
+  name           String
+  role           String              // "Editor", "Creative Director", "AI Artist", etc.
+  specialization String?
+  bio            String?
+  portraitUrl    String?
+  skills         String?             // JSON array of strings
+  socialLinks    String?             // JSON object
+  displayOrder   Int                 @default(0)
+  isVisible      Boolean             @default(true)
+  isDemo         Boolean             @default(false)
+  projects       ProjectTeamMember[]
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+}
+
+model ProjectTeamMember {
+  projectId    String
+  teamMemberId String
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  teamMember   TeamMember @relation(fields: [teamMemberId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, teamMemberId])
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  quote        String
+  authorName   String
+  authorRole   String
+  company      String?
+  photoUrl     String?
+  displayOrder Int      @default(0)
+  isVisible    Boolean  @default(true)
+  isDemo       Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactInquiry {
+  id                String        @id @default(cuid())
+  timecode          String        // Generated intake timecode stamp e.g. "TC-00:14:02:18"
+  name              String
+  email             String
+  company           String?
+  projectType       String
+  budget            String
+  timeline          String
+  deliverables      String?
+  referenceLinks    String?
+  description       String
+  fileAttachmentUrl String?
+  commPreference    String
+  status            String        @default("NEW") // NEW, REVIEWING, CONTACTED, ACTIVE, COMPLETED, ARCHIVED
+  internalNotes     InquiryNote[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+}
+
+model InquiryNote {
+  id         String         @id @default(cuid())
+  inquiryId  String
+  inquiry    ContactInquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+  authorName String
+  note       String
+  createdAt  DateTime       @default(now())
+}
+
+model MediaAsset {
+  id          String         @id @default(cuid())
+  filename    String
+  url         String
+  mimeType    String
+  sizeBytes   Int
+  aspectRatio String?
+  altText     String?
+  blurhash    String?
+  isDemo      Boolean        @default(false)
+  projects    ProjectMedia[]
+  createdAt   DateTime       @default(now())
+}
+
+model ProjectMedia {
+  projectId    String
+  mediaAssetId String
+  project      Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  mediaAsset   MediaAsset @relation(fields: [mediaAssetId], references: [id], onDelete: Restrict)
+
+  @@id([projectId, mediaAssetId])
+}
+
+model ActivityLog {
+  id          String     @id @default(cuid())
+  userId      String?
+  user        AdminUser? @relation(fields: [userId], references: [id])
+  action      String     // "CREATE_PROJECT", "DELETE_MEDIA", etc.
+  details     String?    // JSON string
+  ipAddress   String?
+  createdAt   DateTime   @default(now())
+}
