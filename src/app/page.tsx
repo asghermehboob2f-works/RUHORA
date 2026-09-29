@@ -10,6 +10,7 @@ import { ManifestoSection } from "@/components/home/ManifestoSection";
 import { AlternatingExhibition } from "@/components/home/AlternatingExhibition";
 import { PinnedStorytellingTimeline } from "@/components/home/PinnedStorytellingTimeline";
 import { BrandPillarsBento } from "@/components/home/BrandPillarsBento";
+import { LaptopTimelineShowcase } from "@/components/home/LaptopTimelineShowcase";
 import { CapabilitiesSystem } from "@/components/home/CapabilitiesSystem";
 import { StudioTeaser } from "@/components/home/StudioTeaser";
 
@@ -57,10 +58,11 @@ export default async function HomePage() {
           { id: "hero", label: "01 HERO" },
           { id: "manifesto", label: "02 MANIFESTO" },
           { id: "work", label: "03 EXHIBITION" },
-          { id: "pipeline", label: "04 PIPELINE" },
-          { id: "pillars", label: "05 PILLARS" },
-          { id: "capabilities", label: "06 SYSTEM" },
-          { id: "studio", label: "07 STUDIO" },
+          { id: "laptop-showcase", label: "04 WORKSPACE" },
+          { id: "pipeline", label: "05 PIPELINE" },
+          { id: "pillars", label: "06 PILLARS" },
+          { id: "capabilities", label: "07 SYSTEM" },
+          { id: "studio", label: "08 STUDIO" },
         ]}
       />
 
@@ -76,7 +78,10 @@ export default async function HomePage() {
         {/* 3. Alternating Featured Exhibition */}
         {projects.length > 0 && <AlternatingExhibition projects={projects} />}
 
-        {/* 4. Scroll-Driven Storytelling Timeline Sequence */}
+        {/* 4. Interactive 3D MacBook Pro NLE Timeline Showcase (kashbit.in reference) */}
+        <LaptopTimelineShowcase />
+
+        {/* 5. Scroll-Driven Storytelling Timeline Sequence */}
         <PinnedStorytellingTimeline />
 
         {/* 5. Core Architectural Pillars Bento */}

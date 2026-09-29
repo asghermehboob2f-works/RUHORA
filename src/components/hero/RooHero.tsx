@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { InteractiveCanvas3D } from "@/components/canvas/InteractiveCanvas3D";
+import { KashbitHeroCanvas } from "@/components/canvas/KashbitHeroCanvas";
 import { ArrowDown, Sparkles } from "lucide-react";
 
 export interface RooHeroProps {
@@ -36,7 +36,7 @@ export const RooHero: React.FC<RooHeroProps> = ({
   return (
     <section className="relative w-full min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[var(--bg)] px-6 md:px-12 pt-32 pb-16 select-none">
       {/* 3D WebGL Background Canvas */}
-      <InteractiveCanvas3D />
+      <KashbitHeroCanvas />
 
       {/* Atmospheric Vignette & Scrims */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--bg)_80%)] pointer-events-none" />
