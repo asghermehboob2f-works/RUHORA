@@ -87,7 +87,7 @@ export const LaptopTimelineShowcase: React.FC = () => {
                       <span className="w-2 h-2 rounded-full bg-[#FFBD2E]" />
                       <span className="w-2 h-2 rounded-full bg-[#27C93F]" />
                     </div>
-                    <span className="text-[var(--text)] font-semibold">ROO EDITS NLE STUDIO</span>
+                    <span className="text-[var(--text)] font-semibold">RUHORA NLE STUDIO</span>
                     <span className="hidden sm:inline text-[var(--text-faint)]">SEQUENCE 01 — MASTER_CUT_v4</span>
                   </div>
 
@@ -122,7 +122,7 @@ export const LaptopTimelineShowcase: React.FC = () => {
                     <div className="w-full h-full flex items-center justify-center relative overflow-hidden">
                       <div className="text-center space-y-2 select-none">
                         <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent)]">
-                          ROO EDITS // SYNTHETIC MEDIA ENGINE
+                          RUHORA // SYNTHETIC MEDIA ENGINE
                         </p>
                         <p className="font-sans text-[11px] text-[var(--text-muted)]">
                           Frame conformity & audio cadence synchronized.

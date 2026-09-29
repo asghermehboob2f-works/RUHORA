@@ -12,7 +12,7 @@ export interface RooHeroProps {
 }
 
 export const RooHero: React.FC<RooHeroProps> = ({
-  brandName = "ROO EDITS",
+  brandName = "RUHORA",
   tagline = "Obsessed with the quality of the frame.",
 }) => {
   const [timecode, setTimecode] = useState("00:00:00:00");
@@ -50,7 +50,7 @@ export const RooHero: React.FC<RooHeroProps> = ({
       >
         <div className="flex items-center gap-2.5 px-3 py-1.5 bg-[var(--bg-raised)] border border-[var(--line)] rounded-full backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-[var(--signal)] animate-pulse" />
-          <span className="text-[var(--text)] font-semibold">VISUAL PRODUCTION STUDIO</span>
+          <span className="text-[var(--text)] font-semibold">{brandName} // STUDIO</span>
           <span className="text-[var(--text-faint)] hidden sm:inline">• 24.00 FPS CONFORM</span>
         </div>
 
@@ -69,7 +69,7 @@ export const RooHero: React.FC<RooHeroProps> = ({
           </p>
 
           <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7.8rem] font-serif font-normal text-[var(--text)] leading-[0.88] tracking-tight uppercase">
-            ROO <span className="italic font-normal text-[var(--accent)]">EDITS</span>
+            RU<span className="italic font-normal text-[var(--accent)]">HORA</span>
           </h1>
         </div>
 

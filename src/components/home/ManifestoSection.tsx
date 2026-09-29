@@ -26,7 +26,7 @@ export const ManifestoSection: React.FC = () => {
           <div className="lg:col-span-5 space-y-8 lg:pt-4">
             <p className="font-sans text-base sm:text-lg text-[var(--text-muted)] leading-relaxed">
               At the intersection of classical editing discipline and generative visual technology,
-              ROO EDITS sculpts high-retention narratives for modern attention spans. Every cut,
+              RUHORA sculpts high-retention narratives for modern attention spans. Every cut,
               retime, and sound micro-transient is placed with mathematical intent.
             </p>
 

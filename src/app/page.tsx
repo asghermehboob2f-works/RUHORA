@@ -66,11 +66,11 @@ export default async function HomePage() {
         ]}
       />
 
-      <NavShell brandName="ROO EDITS" />
+      <NavShell brandName={site.brandName} />
 
       <main className="space-y-0">
         {/* 1. Complete Redesigned Hero with 3D Canvas */}
-        <RooHero brandName="ROO EDITS" tagline={site.tagline} />
+        <RooHero brandName={site.brandName} tagline={site.tagline} />
 
         {/* 2. Visual Manifesto & Live Metrics Bar */}
         <ManifestoSection />
@@ -84,19 +84,19 @@ export default async function HomePage() {
         {/* 5. Scroll-Driven Storytelling Timeline Sequence */}
         <PinnedStorytellingTimeline />
 
-        {/* 5. Core Architectural Pillars Bento */}
+        {/* 6. Core Architectural Pillars Bento */}
         <BrandPillarsBento />
 
-        {/* 6. Capabilities System Matrix */}
+        {/* 7. Capabilities System Matrix */}
         {capabilities.length > 0 && <CapabilitiesSystem capabilities={capabilities} />}
 
-        {/* 7. Studio & Leadership Teaser */}
+        {/* 8. Studio & Leadership Teaser */}
         <StudioTeaser founderName={site.founderName} founderBio={site.founderBio} />
       </main>
 
-      {/* 8. Closing Frame Footer */}
+      {/* 9. Closing Frame Footer */}
       <FooterShell
-        brandName="ROO EDITS"
+        brandName={site.brandName}
         closingHeadline={site.footerClosing}
         contactEmail={site.contactEmail}
       />
