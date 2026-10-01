@@ -23,7 +23,7 @@ export const RooHero: React.FC<RooHeroProps> = ({
       <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.14em] text-[var(--text-muted)]">
         <div className="flex items-center gap-2.5 px-3.5 py-1.5 bg-[var(--bg-raised)] border border-[var(--line)] rounded-full shadow-sm">
           <span className="w-2 h-2 rounded-full bg-[var(--signal)] animate-pulse" />
-          <span className="text-[var(--text)] font-medium">{brandName} // ROO</span>
+          <span className="text-[var(--text)] font-medium">{brandName} // RUH</span>
           <span className="text-[var(--text-faint)]">• EDITORIAL & AI POST</span>
         </div>
 

@@ -24,7 +24,7 @@ export const defaultSiteConfig: SiteConfig = {
   accentColor: "#C9B99A",
   contactEmail: "inquiry@ruhora.com",
   footerClosing: "HAVE SOMETHING WORTH *MAKING*?",
-  founderName: "Roo",
+  founderName: "Ruh",
   founderBio: "Director & Lead Editor specializing in narrative pacing, commercial visual post, and synthetic media pipelines.",
   founderPhotoUrl: null,
   founderSocials: {

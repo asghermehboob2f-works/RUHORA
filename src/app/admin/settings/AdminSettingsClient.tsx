@@ -14,7 +14,7 @@ export const AdminSettingsClient: React.FC<{ initialSite: any }> = ({ initialSit
     accentColor: initialSite.accentColor || "#C9B99A",
     contactEmail: initialSite.contactEmail || "inquiry@ruhora.com",
     footerClosing: initialSite.footerClosing || "HAVE SOMETHING WORTH *MAKING*?",
-    founderName: initialSite.founderName || "Roo",
+    founderName: initialSite.founderName || "Ruh",
     founderBio: initialSite.founderBio || "Director & Lead Editor specializing in narrative pacing, commercial visual post, and synthetic media pipelines.",
     founderSocials: initialSite.founderSocials ? (typeof initialSite.founderSocials === "string" ? initialSite.founderSocials : JSON.stringify(initialSite.founderSocials, null, 2)) : '{\n  "x": "https://x.com",\n  "instagram": "https://instagram.com",\n  "youtube": "https://youtube.com"\n}',
   });

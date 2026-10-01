@@ -23,7 +23,7 @@ async function main() {
     update: {},
     create: {
       email: "admin@ruhora.com",
-      name: "Roo Admin",
+      name: "Ruh Admin",
       passwordHash: hashPassword("admin12345"),
       role: "SUPERADMIN",
     },
@@ -32,7 +32,9 @@ async function main() {
   // 1. Site Configuration
   await prisma.siteSetting.upsert({
     where: { id: "site_config" },
-    update: {},
+    update: {
+      founderName: "Ruh",
+    },
     create: {
       id: "site_config",
       brandName: "RUHORA",
@@ -43,7 +45,7 @@ async function main() {
       accentColor: "#C9B99A",
       contactEmail: "inquiry@ruhora.com",
       footerClosing: "HAVE SOMETHING WORTH *MAKING*?",
-      founderName: "Roo",
+      founderName: "Ruh",
       founderBio:
         "Director & Lead Editor specializing in narrative pacing, commercial visual post, and synthetic media pipelines.",
       founderSocials: JSON.stringify({

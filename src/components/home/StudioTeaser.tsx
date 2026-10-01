@@ -11,7 +11,7 @@ export interface StudioTeaserProps {
 }
 
 export const StudioTeaser: React.FC<StudioTeaserProps> = ({
-  founderName = "Roo",
+  founderName = "Ruh",
   founderBio = "Director & Lead Editor specializing in narrative pacing, commercial visual post, and synthetic media pipelines.",
 }) => {
   return (

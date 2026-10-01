@@ -10,7 +10,7 @@ interface AboutServicesSectionProps {
 }
 
 export const AboutServicesSection: React.FC<AboutServicesSectionProps> = ({
-  founderName = "Roo",
+  founderName = "Ruh",
   founderBio = "Director & Lead Editor specializing in narrative pacing, commercial visual post, and synthetic AI media pipelines.",
 }) => {
   const services = [
