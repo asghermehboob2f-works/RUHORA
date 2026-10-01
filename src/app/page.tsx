@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 import { NavShell } from "@/components/navigation/NavShell";
 import { FooterShell } from "@/components/navigation/FooterShell";
-import { RooHero } from "@/components/hero/RooHero";
+import { RuhHero } from "@/components/hero/RuhHero";
 import { CleanPortfolioGrid } from "@/components/home/CleanPortfolioGrid";
 import { AboutServicesSection } from "@/components/home/AboutServicesSection";
 import { ContactCtaSection } from "@/components/home/ContactCtaSection";
@@ -71,7 +71,7 @@ export default async function HomePage() {
 
       <main className="space-y-0">
         {/* 1. Clean Minimalist Hero */}
-        <RooHero brandName={site.brandName} tagline={site.tagline} />
+        <RuhHero brandName={site.brandName} tagline={site.tagline} />
 
         {/* 2. Clean Portfolio Showcase Grid */}
         <CleanPortfolioGrid projects={projects} />

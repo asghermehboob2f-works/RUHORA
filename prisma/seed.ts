@@ -59,6 +59,12 @@ async function main() {
     },
   });
 
+  // Also update any existing site settings that had "Roo"
+  await prisma.siteSetting.updateMany({
+    where: { founderName: "Roo" },
+    data: { founderName: "Ruh" },
+  });
+
   // 2. Navigation Items
   const navItems = [
     { label: "WORK", href: "/work", displayOrder: 1, isCta: false },
@@ -185,7 +191,56 @@ async function main() {
     });
   }
 
-  console.log("✅ Seed completed successfully with secure admin user and demo catalog.");
+  // 5. Creative Directory Team Members
+  // Update any existing member named "Roo" to "Ruh"
+  await prisma.teamMember.updateMany({
+    where: { name: "Roo" },
+    data: { name: "Ruh" },
+  });
+
+  const teamMembers = [
+    {
+      name: "Ruh",
+      role: "Founder & Creative Director",
+      specialization: "Editorial Architecture & Visual Direction",
+      bio: "Focuses on narrative pacing, commercial visual post, and synthetic media integration.",
+      skills: JSON.stringify(["Premiere Pro", "DaVinci Resolve", "ComfyUI / Stable Diffusion", "Sound Design"]),
+      displayOrder: 1,
+      isVisible: true,
+      isDemo: true,
+    },
+    {
+      name: "Lead Editor",
+      role: "Senior Editor",
+      specialization: "Rhythm, Sound FX & Motion Flow",
+      bio: "Master of timing and retention dynamics across long-form and high-energy short-form.",
+      skills: JSON.stringify(["Premiere Pro", "After Effects", "Sound Mixing"]),
+      displayOrder: 2,
+      isVisible: true,
+      isDemo: true,
+    },
+  ];
+
+  for (const member of teamMembers) {
+    const existing = await prisma.teamMember.findFirst({
+      where: { name: member.name },
+    });
+    if (!existing) {
+      await prisma.teamMember.create({ data: member });
+    } else {
+      await prisma.teamMember.update({
+        where: { id: existing.id },
+        data: {
+          role: member.role,
+          specialization: member.specialization,
+          bio: member.bio,
+          skills: member.skills,
+        },
+      });
+    }
+  }
+
+  console.log("✅ Seed completed successfully with Ruh as founder and team lead.");
 }
 
 main()
