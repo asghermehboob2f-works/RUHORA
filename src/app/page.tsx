@@ -1,18 +1,12 @@
 import { getSite } from "@/lib/site";
 import { db } from "@/lib/db";
 import { CustomCursor } from "@/components/ui/CustomCursor";
-import { PlayheadTracker } from "@/components/ui/PlayheadTracker";
-import { FloatingContactPill } from "@/components/ui/FloatingContactPill";
 import { NavShell } from "@/components/navigation/NavShell";
 import { FooterShell } from "@/components/navigation/FooterShell";
 import { RooHero } from "@/components/hero/RooHero";
-import { ManifestoSection } from "@/components/home/ManifestoSection";
-import { AlternatingExhibition } from "@/components/home/AlternatingExhibition";
-import { PinnedStorytellingTimeline } from "@/components/home/PinnedStorytellingTimeline";
-import { BrandPillarsBento } from "@/components/home/BrandPillarsBento";
-import { LaptopTimelineShowcase } from "@/components/home/LaptopTimelineShowcase";
-import { CapabilitiesSystem } from "@/components/home/CapabilitiesSystem";
-import { StudioTeaser } from "@/components/home/StudioTeaser";
+import { CleanPortfolioGrid } from "@/components/home/CleanPortfolioGrid";
+import { AboutServicesSection } from "@/components/home/AboutServicesSection";
+import { ContactCtaSection } from "@/components/home/ContactCtaSection";
 
 export default async function HomePage() {
   const site = await getSite();
@@ -28,73 +22,74 @@ export default async function HomePage() {
     projects = [];
   }
 
-  // Load Capabilities from DB
-  let capabilities: any[] = [];
-  try {
-    const rawCaps = await db.capability.findMany({
-      where: { isVisible: true },
-      orderBy: { displayOrder: "asc" },
-    });
-
-    capabilities = rawCaps.map((c) => ({
-      id: c.id,
-      name: c.name,
-      slug: c.slug,
-      category: c.category,
-      description: c.description,
-      deliverables: typeof c.deliverables === "string" ? JSON.parse(c.deliverables) : c.deliverables,
-    }));
-  } catch {
-    capabilities = [];
+  // Fallback demo projects if DB is empty or unmigrated
+  if (projects.length === 0) {
+    projects = [
+      {
+        id: "demo-1",
+        title: "Synthetic Motion Narrative",
+        slug: "synthetic-motion-narrative",
+        year: "2026",
+        category: "AI Film",
+        aspectRatio: "16:9",
+        summary: "Hybrid live-action and generative diffusion pipeline exploring temporal coherence and rapid cinematic cuts.",
+      },
+      {
+        id: "demo-2",
+        title: "Kinetics Commercial Cut",
+        slug: "kinetics-commercial-cut",
+        year: "2026",
+        category: "Commercial",
+        aspectRatio: "16:9",
+        summary: "High-cadence commercial editing with precision sound design transients, custom typography, and dynamic pacing.",
+      },
+      {
+        id: "demo-3",
+        title: "Vertical Frame Architecture",
+        slug: "vertical-frame-architecture",
+        year: "2026",
+        category: "Vertical",
+        aspectRatio: "9:16",
+        summary: "Modern 9:16 cinematic storytelling engineered for high retention and narrative impact across mobile displays.",
+      },
+      {
+        id: "demo-4",
+        title: "Archival Essay Documentary",
+        slug: "archival-essay-documentary",
+        year: "2025",
+        category: "Documentary",
+        aspectRatio: "16:9",
+        summary: "Long-form narrative construction integrating historical restoration, DaVinci Resolve color conform, and bespoke scoring.",
+      },
+    ];
   }
 
   return (
     <div className="relative min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-x-hidden">
       <CustomCursor />
-      <FloatingContactPill />
-
-      <PlayheadTracker
-        sections={[
-          { id: "hero", label: "01 HERO" },
-          { id: "manifesto", label: "02 MANIFESTO" },
-          { id: "work", label: "03 EXHIBITION" },
-          { id: "laptop-showcase", label: "04 WORKSPACE" },
-          { id: "pipeline", label: "05 PIPELINE" },
-          { id: "pillars", label: "06 PILLARS" },
-          { id: "capabilities", label: "07 SYSTEM" },
-          { id: "studio", label: "08 STUDIO" },
-        ]}
-      />
-
       <NavShell brandName={site.brandName} />
 
       <main className="space-y-0">
-        {/* 1. Complete Redesigned Hero with 3D Canvas */}
+        {/* 1. Clean Minimalist Hero */}
         <RooHero brandName={site.brandName} tagline={site.tagline} />
 
-        {/* 2. Visual Manifesto & Live Metrics Bar */}
-        <ManifestoSection />
+        {/* 2. Clean Portfolio Showcase Grid */}
+        <CleanPortfolioGrid projects={projects} />
 
-        {/* 3. Alternating Featured Exhibition */}
-        {projects.length > 0 && <AlternatingExhibition projects={projects} />}
+        {/* 3. About & Services Section */}
+        <AboutServicesSection
+          founderName={site.founderName}
+          founderBio={site.founderBio}
+        />
 
-        {/* 4. Interactive 3D MacBook Pro NLE Timeline Showcase (kashbit.in reference) */}
-        <LaptopTimelineShowcase />
-
-        {/* 5. Scroll-Driven Storytelling Timeline Sequence */}
-        <PinnedStorytellingTimeline />
-
-        {/* 6. Core Architectural Pillars Bento */}
-        <BrandPillarsBento />
-
-        {/* 7. Capabilities System Matrix */}
-        {capabilities.length > 0 && <CapabilitiesSystem capabilities={capabilities} />}
-
-        {/* 8. Studio & Leadership Teaser */}
-        <StudioTeaser founderName={site.founderName} founderBio={site.founderBio} />
+        {/* 4. Contact & Inquiries Banner */}
+        <ContactCtaSection
+          contactEmail={site.contactEmail}
+          brandName={site.brandName}
+        />
       </main>
 
-      {/* 9. Closing Frame Footer */}
+      {/* 5. Minimalist Clean Footer */}
       <FooterShell
         brandName={site.brandName}
         closingHeadline={site.footerClosing}
