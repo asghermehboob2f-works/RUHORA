@@ -5,13 +5,14 @@ import { getSite } from "@/lib/site";
 import {
   LayoutDashboard,
   Film,
-  Image as ImageIcon,
   Inbox,
   Settings,
   Layers,
   Users,
   ExternalLink,
+  LogOut,
 } from "lucide-react";
+import { AdminLogoutButton } from "./AdminLogoutButton";
 
 export const metadata = {
   title: "Admin Console | RUHORA Operations",
@@ -24,11 +25,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   const navLinks = [
     { label: "OVERVIEW", href: "/admin", icon: LayoutDashboard },
-    { label: "PROJECTS", href: "/admin/projects", icon: Film },
+    { label: "PROJECTS & VIDEOS", href: "/admin/projects", icon: Film },
+    { label: "SERVICES & CAPABILITIES", href: "/admin/capabilities", icon: Layers },
     { label: "INQUIRIES", href: "/admin/inquiries", icon: Inbox },
-    { label: "CAPABILITIES", href: "/admin/capabilities", icon: Layers },
-    { label: "CREATIVE", href: "/admin/creative", icon: Users },
-    { label: "SETTINGS", href: "/admin/settings", icon: Settings },
+    { label: "CREATIVE TEAM", href: "/admin/creative", icon: Users },
+    { label: "STUDIO SETTINGS", href: "/admin/settings", icon: Settings },
   ];
 
   return (
@@ -55,7 +56,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="flex items-center gap-3 px-3 py-2.5 text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] rounded-[2px] transition-colors"
+                  className="flex items-center gap-3 px-3 py-2.5 text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-raised)] rounded-lg transition-colors"
                 >
                   <Icon size={14} className="text-[var(--accent)]" />
                   <span>{link.label}</span>
@@ -69,25 +70,31 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <Link
             href="/"
             target="_blank"
-            className="flex items-center justify-between font-mono text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+            className="flex items-center justify-between font-mono text-[10px] uppercase text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors p-2 rounded hover:bg-[var(--bg-raised)]"
           >
-            <span>LIVE FLAGSHIP</span>
+            <span>VIEW LIVE PORTFOLIO</span>
             <ExternalLink size={12} />
           </Link>
-          <div className="font-mono text-[9px] text-[var(--text-faint)]">
-            SECURE SERVER SESSION
+          <div className="flex items-center justify-between font-mono text-[10px] text-[var(--text-faint)]">
+            <span>SESSION ACTIVE</span>
+            <AdminLogoutButton />
           </div>
         </div>
       </aside>
 
       {/* Admin Main Body Canvas */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 border-b border-[var(--line)] px-8 flex items-center justify-between bg-[var(--bg)]">
+        <header className="h-16 border-b border-[var(--line)] px-6 md:px-10 flex items-center justify-between bg-[var(--bg)]">
           <span className="font-mono text-xs uppercase tracking-[0.1em] text-[var(--text-faint)]">
-            RUHORA OPERATIONAL ENGINE // BUILD v1.0
+            RUHORA OPERATIONAL ENGINE // CMS v2.0
           </span>
-          <div className="flex items-center gap-3 font-mono text-xs text-[var(--accent)]">
-            <span>● CONNECTED</span>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/admin/projects"
+              className="font-mono text-xs text-[var(--accent)] hover:underline flex items-center gap-1"
+            >
+              + Add Video/Project
+            </Link>
           </div>
         </header>
 

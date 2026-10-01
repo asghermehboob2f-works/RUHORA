@@ -7,10 +7,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   label?: string;
   metaLabel?: string;
   error?: string;
+  helperText?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, metaLabel, error, id, ...props }, ref) => {
+  ({ className, label, metaLabel, error, helperText, id, ...props }, ref) => {
     const inputId = id || React.useId();
 
     return (
@@ -42,6 +43,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
           {...props}
         />
+        {helperText && !error && (
+          <p className="font-mono text-[10px] text-[var(--text-faint)]">
+            {helperText}
+          </p>
+        )}
         {error && (
           <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--signal)]">
             {error}
@@ -58,10 +64,11 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   label?: string;
   metaLabel?: string;
   error?: string;
+  helperText?: string;
 }
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, label, metaLabel, error, id, rows = 4, ...props }, ref) => {
+  ({ className, label, metaLabel, error, helperText, id, rows = 4, ...props }, ref) => {
     const textareaId = id || React.useId();
 
     return (
@@ -94,6 +101,11 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           )}
           {...props}
         />
+        {helperText && !error && (
+          <p className="font-mono text-[10px] text-[var(--text-faint)]">
+            {helperText}
+          </p>
+        )}
         {error && (
           <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--signal)]">
             {error}

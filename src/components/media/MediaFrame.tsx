@@ -20,6 +20,29 @@ export interface MediaFrameProps {
   onClick?: () => void;
 }
 
+function getEmbedUrl(url?: string | null): { type: "youtube" | "vimeo" | "video" | "image" | null; src: string | null } {
+  if (!url) return { type: null, src: null };
+
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  if (ytMatch && ytMatch[1]) {
+    return { type: "youtube", src: `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=0&rel=0&modestbranding=1` };
+  }
+
+  // Vimeo
+  const vimeoMatch = url.match(/(?:vimeo\.com\/(?:video\/)?|player\.vimeo\.com\/video\/)(\d+)/);
+  if (vimeoMatch && vimeoMatch[1]) {
+    return { type: "vimeo", src: `https://player.vimeo.com/video/${vimeoMatch[1]}?title=0&byline=0&portrait=0` };
+  }
+
+  // Direct video
+  if (url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".mov") || url.includes("video")) {
+    return { type: "video", src: url };
+  }
+
+  return { type: "image", src: url };
+}
+
 export const MediaFrame: React.FC<MediaFrameProps> = ({
   aspectRatio = "16:9",
   mediaUrl,
@@ -60,7 +83,7 @@ export const MediaFrame: React.FC<MediaFrameProps> = ({
     }
   };
 
-  const isVideo = mediaUrl?.endsWith(".mp4") || mediaUrl?.endsWith(".webm") || hoverVideoUrl;
+  const embed = getEmbedUrl(mediaUrl);
   const hasMedia = Boolean(mediaUrl || posterUrl || hoverVideoUrl);
 
   return (
@@ -79,6 +102,7 @@ export const MediaFrame: React.FC<MediaFrameProps> = ({
       {/* Media Rendering */}
       {hasMedia ? (
         <>
+          {/* Poster Image */}
           {posterUrl && (
             <Image
               src={posterUrl}
@@ -93,6 +117,7 @@ export const MediaFrame: React.FC<MediaFrameProps> = ({
             />
           )}
 
+          {/* Hover preview video */}
           {hoverVideoUrl && (
             <video
               ref={videoRef}
@@ -109,19 +134,41 @@ export const MediaFrame: React.FC<MediaFrameProps> = ({
             />
           )}
 
-          {mediaUrl && !hoverVideoUrl && !posterUrl && isVideo && (
-            <video
-              src={mediaUrl}
-              muted
-              loop
-              autoPlay
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+          {/* Embedded YouTube / Vimeo / MP4 Player if no hover preview is active */}
+          {mediaUrl && !hoverVideoUrl && !posterUrl && (
+            <>
+              {embed.type === "youtube" || embed.type === "vimeo" ? (
+                <iframe
+                  src={embed.src || ""}
+                  title={alt}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full border-0"
+                />
+              ) : embed.type === "video" ? (
+                <video
+                  src={embed.src || ""}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={embed.src || ""}
+                  alt={alt}
+                  fill
+                  priority={priority}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 1200px"
+                  className="object-cover"
+                />
+              )}
+            </>
           )}
         </>
       ) : (
-        /* Structural Placeholder (Section 5.2 / Section 12) */
+        /* Structural Placeholder */
         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center select-none bg-[radial-gradient(circle_at_center,rgba(236,234,230,0.03)_0%,transparent_70%)]">
           <div className="space-y-2">
             <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--accent)]">
@@ -134,10 +181,10 @@ export const MediaFrame: React.FC<MediaFrameProps> = ({
         </div>
       )}
 
-      {/* Subtle bottom scrim to guarantee high text contrast */}
+      {/* Subtle bottom scrim */}
       <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[rgba(11,11,12,0.85)] to-transparent pointer-events-none opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
 
-      {/* Corner Crop Marks (┌ ┐ └ ┘) */}
+      {/* Corner Crop Marks */}
       {showCropMarks && (
         <div className="absolute inset-2.5 pointer-events-none transition-opacity duration-300 opacity-60 group-hover:opacity-100">
           <span className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[var(--text-faint)] group-hover:border-[var(--accent)]" />
