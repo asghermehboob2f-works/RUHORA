@@ -1,9 +1,33 @@
 import { PrismaClient } from "@prisma/client";
+import crypto from "crypto";
 
 const prisma = new PrismaClient();
 
+function hashPassword(password: string): string {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const iterations = 100000;
+  const keyLen = 64;
+  const digest = "sha512";
+  const hash = crypto
+    .pbkdf2Sync(password, salt, iterations, keyLen, digest)
+    .toString("hex");
+  return `pbkdf2$${iterations}$${salt}$${hash}`;
+}
+
 async function main() {
-  console.log("🌱 Seeding RUHORA database with structural demo records...");
+  console.log("🌱 Seeding RUHORA database with structural demo records & secure admin...");
+
+  // 0. Default Admin User (admin@ruhora.com / admin12345)
+  await prisma.adminUser.upsert({
+    where: { email: "admin@ruhora.com" },
+    update: {},
+    create: {
+      email: "admin@ruhora.com",
+      name: "Roo Admin",
+      passwordHash: hashPassword("admin12345"),
+      role: "SUPERADMIN",
+    },
+  });
 
   // 1. Site Configuration
   await prisma.siteSetting.upsert({
@@ -13,7 +37,7 @@ async function main() {
       id: "site_config",
       brandName: "RUHORA",
       tagline: "Obsessed with the quality of the frame.",
-      heroHeadline: "WE CUT. WE SHAPE. WE MAKE *VISUALS* MOVE.",
+      heroHeadline: "Creative Video Editing & Visual Post Direction",
       statementText:
         "We are a specialized post-production and AI visual studio. We do not mass-produce content. We partner with creators, brands, and directors who require every frame to hold weight.",
       accentColor: "#C9B99A",
@@ -25,6 +49,7 @@ async function main() {
       founderSocials: JSON.stringify({
         x: "https://x.com",
         instagram: "https://instagram.com",
+        youtube: "https://youtube.com",
       }),
       seoDefaultTitle: "RUHORA — Visual Production & AI Post Studio",
       seoDefaultDesc:
@@ -37,9 +62,8 @@ async function main() {
     { label: "WORK", href: "/work", displayOrder: 1, isCta: false },
     { label: "CAPABILITIES", href: "/capabilities", displayOrder: 2, isCta: false },
     { label: "STUDIO", href: "/studio", displayOrder: 3, isCta: false },
-    { label: "CREATIVE", href: "/creative", displayOrder: 4, isCta: false },
-    { label: "SHOWREEL", href: "/showreel", displayOrder: 5, isCta: false },
-    { label: "START A PROJECT", href: "/contact", displayOrder: 6, isCta: true },
+    { label: "SHOWREEL", href: "/showreel", displayOrder: 4, isCta: false },
+    { label: "START A PROJECT", href: "/contact", displayOrder: 5, isCta: true },
   ];
 
   for (const item of navItems) {
@@ -54,44 +78,36 @@ async function main() {
   // 3. Capabilities System
   const capabilities = [
     {
-      name: "Video Editing",
-      slug: "video-editing",
+      name: "Precision Video Editing",
+      slug: "precision-video-editing",
       category: "Post-Production",
-      description: "Precision rhythm, pacing, and editorial architecture for cinema, commercials, and elite creator formats.",
+      description: "Rhythm-first editorial cutting, multi-cam assembly, pacing control, and high-retention narrative structuring for commercial and digital formats.",
       deliverables: JSON.stringify(["Assembly & Picture Lock", "Multi-cam Sync", "Pacing & Retime", "Audio Polish"]),
       displayOrder: 1,
     },
     {
-      name: "AI Visual Production",
-      slug: "ai-visual-production",
+      name: "AI Visual Production & VFX",
+      slug: "ai-visual-production-vfx",
       category: "Synthetic Media",
-      description: "Generative video, synthetic environment design, and hybrid live-action/AI pipelines with director-level taste.",
+      description: "Generative video, synthetic environment design, style transfer, and neural upscaling pipelines with director-level taste.",
       deliverables: JSON.stringify(["Generative Concept B-roll", "Style Transfer", "Neural Upscaling", "Synthetic Backdrops"]),
       displayOrder: 2,
     },
     {
-      name: "Commercial Post",
-      slug: "commercial-post",
+      name: "Color Grading & Look Dev",
+      slug: "color-grading-look-dev",
       category: "Post-Production",
-      description: "Full-stack post-production including precision color grading, motion graphics integration, and audio design.",
-      deliverables: JSON.stringify(["Color Grade Conform", "Title Design", "VFX Clean-up", "Delivery Masters"]),
+      description: "Cinema-grade color conform in DaVinci Resolve Studio. Custom show LUTs, film emulation, tone curve balancing, and HDR delivery.",
+      deliverables: JSON.stringify(["Color Grade Conform", "Title Design", "ACES / Color Managed", "Delivery Masters"]),
       displayOrder: 3,
     },
     {
-      name: "Long-Form & Documentary",
-      slug: "long-form-documentary",
-      category: "Narrative",
-      description: "In-depth narrative sculpting for feature YouTube essays, documentary series, and masterclass formats.",
-      deliverables: JSON.stringify(["Story Spine Construction", "Archival Integration", "Dynamic Chapters", "Soundscapes"]),
+      name: "Sound Design & Mastering",
+      slug: "sound-design-mastering",
+      category: "Audio Post",
+      description: "Frame-accurate sound effect micro-layering, audio sweetening, dialogue cleanup, and punchy spatial dynamics that elevate every cut.",
+      deliverables: JSON.stringify(["Story Spine Construction", "Archival Integration", "Soundscapes", "Audio Polish"]),
       displayOrder: 4,
-    },
-    {
-      name: "Short-Form Cinema",
-      slug: "short-form-cinema",
-      category: "Creator Formats",
-      description: "High-density, cinematic vertical narratives designed for immediate retention without cheap visual gimmicks.",
-      deliverables: JSON.stringify(["9:16 Kinetic Framing", "Sound FX Micro-layering", "Retention Hooks", "Custom Graphics"]),
-      displayOrder: 5,
     },
   ];
 
@@ -103,13 +119,13 @@ async function main() {
     });
   }
 
-  // 4. Structural Demo Projects (isDemo = true, using Media Placeholders per Section 12)
+  // 4. Structural Demo Projects
   const demoProjects = [
     {
-      title: "Sample Project 01 — Replace",
-      slug: "sample-project-01",
+      title: "Synthetic Motion Narrative",
+      slug: "synthetic-motion-narrative",
       year: "2026",
-      category: "AI Film / Post-Production",
+      category: "AI Film",
       aspectRatio: "16:9",
       layoutVariant: "FULLBLEED",
       summary: "Cinematic hybrid narrative exploring generative visual workflows fused with classical timeline discipline.",
@@ -119,11 +135,11 @@ async function main() {
       displayOrder: 1,
     },
     {
-      title: "Sample Project 02 — Replace",
-      slug: "sample-project-02",
+      title: "Kinetics Commercial Cut",
+      slug: "kinetics-commercial-cut",
       year: "2026",
-      category: "Commercial Edit",
-      aspectRatio: "21:9",
+      category: "Commercial",
+      aspectRatio: "16:9",
       layoutVariant: "ASYMMETRIC",
       summary: "Precision commercial post-production highlighting dynamic typography, pacing, and color conformity.",
       featured: true,
@@ -132,10 +148,10 @@ async function main() {
       displayOrder: 2,
     },
     {
-      title: "Sample Project 03 — Replace",
-      slug: "sample-project-03",
+      title: "Vertical Frame Architecture",
+      slug: "vertical-frame-architecture",
       year: "2026",
-      category: "Vertical Cinema",
+      category: "Vertical",
       aspectRatio: "9:16",
       layoutVariant: "VERTICAL",
       summary: "High-retention 9:16 narrative with frame-by-frame sound design and editorial impact.",
@@ -145,10 +161,10 @@ async function main() {
       displayOrder: 3,
     },
     {
-      title: "Sample Project 04 — Replace",
-      slug: "sample-project-04",
+      title: "Archival Essay Documentary",
+      slug: "archival-essay-documentary",
       year: "2025",
-      category: "Documentary Post",
+      category: "Documentary",
       aspectRatio: "16:9",
       layoutVariant: "SPLIT",
       summary: "Long-form editorial rhythm with archival restoration and bespoke motion accents.",
@@ -167,40 +183,7 @@ async function main() {
     });
   }
 
-  // 5. Creative Directory
-  const teamMembers = [
-    {
-      name: "Roo",
-      role: "Founder & Creative Director",
-      specialization: "Editorial Architecture & Visual Direction",
-      bio: "Focuses on narrative pacing, commercial visual post, and synthetic media integration.",
-      skills: JSON.stringify(["Premiere Pro", "DaVinci Resolve", "ComfyUI / Stable Diffusion", "Sound Design"]),
-      displayOrder: 1,
-      isVisible: true,
-      isDemo: true,
-    },
-    {
-      name: "Lead Editor",
-      role: "Senior Editor",
-      specialization: "Rhythm, Sound FX & Motion Flow",
-      bio: "Master of timing and retention dynamics across long-form and high-energy short-form.",
-      skills: JSON.stringify(["Premiere Pro", "After Effects", "Sound Mixing"]),
-      displayOrder: 2,
-      isVisible: true,
-      isDemo: true,
-    },
-  ];
-
-  for (const member of teamMembers) {
-    const existing = await prisma.teamMember.findFirst({
-      where: { name: member.name },
-    });
-    if (!existing) {
-      await prisma.teamMember.create({ data: member });
-    }
-  }
-
-  console.log("✅ Seed completed successfully with structural demo placeholders.");
+  console.log("✅ Seed completed successfully with secure admin user and demo catalog.");
 }
 
 main()
