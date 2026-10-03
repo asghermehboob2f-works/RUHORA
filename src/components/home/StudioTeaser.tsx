@@ -15,7 +15,7 @@ export const StudioTeaser: React.FC<StudioTeaserProps> = ({
   founderBio = "Director & Lead Editor specializing in narrative pacing, commercial visual post, and synthetic media pipelines.",
 }) => {
   return (
-    <section id="studio" className="w-full max-w-[1680px] mx-auto px-6 md:px-12 py-32 border-b border-[var(--line)] space-y-20">
+    <section id="studio" className="w-full container-full mx-auto py-24 md:py-32 border-b border-[var(--line)] space-y-20">
       <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <span>07 // THE STUDIO</span>
         <span>HUMAN ARCHITECTURE</span>

@@ -33,12 +33,12 @@ export const BrandPillarsBento: React.FC = () => {
 
   return (
     <section className="w-full bg-[var(--bg)] border-b border-[var(--line)] py-32 md:py-48 space-y-24">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
+      <div className="container-full mx-auto flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <span>05 // CORE PILLARS</span>
         <span>ARCHITECTURAL PRINCIPLES</span>
       </div>
 
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="container-full mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {pillars.map((p) => {
           const Icon = p.icon;
 

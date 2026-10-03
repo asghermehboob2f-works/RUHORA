@@ -79,7 +79,7 @@ export const NavShell: React.FC<NavShellProps> = ({
             : "bg-transparent py-5"
         )}
       >
-        <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="container-full mx-auto flex items-center justify-between">
           {/* Brand Logo / Wordmark */}
           <Link
             href="/"

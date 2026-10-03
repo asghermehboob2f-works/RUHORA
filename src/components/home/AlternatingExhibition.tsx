@@ -26,7 +26,7 @@ export const AlternatingExhibition: React.FC<{ projects: ExhibitionProject[] }> 
 
   return (
     <section id="work" className="w-full bg-[var(--bg)] border-b border-[var(--line)] py-32 md:py-48 space-y-36">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
+      <div className="container-full mx-auto flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--signal)] animate-pulse" />
           <span className="text-[var(--text)] font-semibold">03 // FEATURED EXHIBITION</span>
@@ -34,7 +34,7 @@ export const AlternatingExhibition: React.FC<{ projects: ExhibitionProject[] }> 
         <span>SELECTED TIMELINES // 24 FPS</span>
       </div>
 
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 space-y-48">
+      <div className="container-full mx-auto space-y-48">
         {projects.map((project, idx) => {
           const isEven = idx % 2 === 1;
           const timecode = `00:0${idx + 1}:18:12`;

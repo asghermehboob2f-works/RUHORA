@@ -28,7 +28,7 @@ export default async function WorkArchivePage() {
       <CustomCursor />
       <NavShell brandName={site.brandName} />
 
-      <main className="max-w-[1680px] mx-auto px-6 md:px-12 pt-36 pb-32 space-y-16">
+      <main className="container-full mx-auto pt-36 pb-32 space-y-16">
         <header className="space-y-4 border-b border-[var(--line)] pb-12">
           <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--accent)]">
             // SELECTED PROJECTS & TIMELINES

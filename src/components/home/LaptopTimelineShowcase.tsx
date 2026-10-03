@@ -1,23 +1,25 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { Play, Pause, Volume2, VolumeX, Maximize2, Sparkles, Layers, Sliders, Film } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { clsx } from "clsx";
 
 export const LaptopTimelineShowcase: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [activeTab, setActiveTab] = useState<"TIMELINE" | "COLOR" | "SYNTHETIC">("TIMELINE");
 
   useEffect(() => {
+    setMounted(true);
+
     const handleScroll = () => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Calculate progress through this section (0 when top enters, 1 when scrolled through)
       const total = rect.height - windowHeight;
       const current = -rect.top;
       const progress = Math.max(0, Math.min(1, current / total));
@@ -31,10 +33,9 @@ export const LaptopTimelineShowcase: React.FC = () => {
   }, []);
 
   // Compute 3D unhinging angles based on scroll
-  // Unhinges from 45deg down to 0deg, scales from 0.85 to 1.05
-  const lidRotateX = Math.max(0, 45 * (1 - scrollProgress * 1.5));
-  const laptopScale = 0.88 + scrollProgress * 0.15;
-  const laptopTranslateY = (1 - scrollProgress) * 40;
+  const lidRotateX = mounted ? Math.max(0, 45 * (1 - scrollProgress * 1.5)) : 45;
+  const laptopScale = mounted ? 0.88 + scrollProgress * 0.15 : 0.88;
+  const laptopTranslateY = mounted ? (1 - scrollProgress) * 40 : 40;
 
   return (
     <section
@@ -45,7 +46,7 @@ export const LaptopTimelineShowcase: React.FC = () => {
       {/* Sticky Viewport Pinning Container */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden p-6 md:p-12">
         {/* Section Header */}
-        <div className="max-w-[1680px] w-full mx-auto flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4 z-20">
+        <div className="container-full w-full mx-auto flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4 z-20">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--signal)] animate-pulse" />
             <span className="text-[var(--text)] font-semibold">04 // INTERACTIVE TIMELINE WORKSPACE</span>
@@ -131,15 +132,20 @@ export const LaptopTimelineShowcase: React.FC = () => {
 
                       {/* Animated Audio Decibel Bars on bottom */}
                       <div className="absolute bottom-2 inset-x-3 flex items-end gap-1 h-8 opacity-60">
-                        {Array.from({ length: 28 }).map((_, i) => (
-                          <div
-                            key={i}
-                            className="flex-1 bg-[var(--accent)] transition-all duration-150"
-                            style={{
-                              height: `${20 + Math.sin(i * 0.8 + scrollProgress * 10) * 60}%`,
-                            }}
-                          />
-                        ))}
+                        {Array.from({ length: 28 }).map((_, i) => {
+                          const heightVal = mounted
+                            ? Math.round(25 + Math.sin(i * 0.8 + scrollProgress * 10) * 45)
+                            : Math.round(25 + Math.sin(i * 0.8) * 45);
+
+                          return (
+                            <div
+                              key={i}
+                              className="flex-1 bg-[var(--accent)] transition-all duration-150"
+                              style={{ height: `${heightVal}%` }}
+                              suppressHydrationWarning
+                            />
+                          );
+                        })}
                       </div>
                     </div>
 
@@ -250,8 +256,8 @@ export const LaptopTimelineShowcase: React.FC = () => {
         </div>
 
         {/* Bottom Status Bar */}
-        <div className="max-w-[1680px] w-full mx-auto flex justify-between items-center font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-t border-[var(--line)] pt-4 z-20">
-          <span>PROGRESS: {Math.round(scrollProgress * 100)}% UNHINGED</span>
+        <div className="container-full w-full mx-auto flex justify-between items-center font-mono text-[9px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-t border-[var(--line)] pt-4 z-20">
+          <span suppressHydrationWarning>PROGRESS: {mounted ? Math.round(scrollProgress * 100) : 0}% UNHINGED</span>
           <span className="text-[var(--accent)]">DAVINCI & PREMIERE TIMELINE ARCHITECTURE</span>
         </div>
       </div>

@@ -30,7 +30,7 @@ export const ProjectIndexSection: React.FC<{ projects: IndexProject[] }> = ({ pr
         );
 
   return (
-    <section id="index" className="w-full max-w-[1680px] mx-auto px-6 md:px-12 py-32 border-b border-[var(--line)] space-y-16">
+    <section id="index" className="w-full container-full mx-auto py-24 md:py-32 border-b border-[var(--line)] space-y-16">
       <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <span>04 // PROJECT INDEX</span>
         <span>TYPOGRAPHIC ARCHIVE</span>

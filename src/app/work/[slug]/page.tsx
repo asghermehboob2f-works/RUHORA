@@ -63,7 +63,7 @@ export default async function ProjectCaseStudyPage({
 
       <main className="space-y-24 pt-32 pb-32">
         {/* 1. Case Study Header */}
-        <section className="max-w-[1680px] mx-auto px-6 md:px-12 space-y-8">
+        <section className="container-full mx-auto space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
             <Link
               href="/work"
@@ -89,7 +89,7 @@ export default async function ProjectCaseStudyPage({
         </section>
 
         {/* 2. Full-Bleed Hero Media Canvas */}
-        <section className="max-w-[1680px] mx-auto px-6 md:px-12">
+        <section className="container-full mx-auto">
           <MediaFrame
             aspectRatio={(project.aspectRatio as AspectRatio) || "16:9"}
             mediaUrl={project.heroMediaUrl}
@@ -102,7 +102,7 @@ export default async function ProjectCaseStudyPage({
         </section>
 
         {/* 3. Project Narrative & Specifications Grid */}
-        <section className="max-w-[1680px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8">
+        <section className="container-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8">
           <div className="lg:col-span-8 space-y-12">
             <div className="space-y-4">
               <span className="font-mono text-xs uppercase tracking-[0.14em] text-[var(--accent)]">
@@ -176,7 +176,7 @@ export default async function ProjectCaseStudyPage({
 
         {/* 4. Seamless Next Project Cut */}
         {nextProject && (
-          <section className="max-w-[1680px] mx-auto px-6 md:px-12 pt-24 border-t border-[var(--line)]">
+          <section className="container-full mx-auto pt-24 border-t border-[var(--line)]">
             <Link
               href={`/work/${nextProject.slug}`}
               className="group block bg-[var(--bg-raised)] border border-[var(--line)] p-8 md:p-16 hover:border-[var(--accent)] transition-all duration-300"

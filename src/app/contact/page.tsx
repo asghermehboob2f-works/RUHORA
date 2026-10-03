@@ -17,7 +17,7 @@ export default async function ContactPage() {
       <CustomCursor />
       <NavShell brandName={site.brandName} />
 
-      <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-36 pb-32 space-y-16">
+      <main className="container-full mx-auto pt-36 pb-32 space-y-16">
         <header className="space-y-4 border-b border-[var(--line)] pb-12 max-w-3xl">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--signal)] animate-pulse" />

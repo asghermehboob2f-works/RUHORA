@@ -26,14 +26,14 @@
   /* Geometry */
   --radius: 0px;
   --radius-input: 2px;
-  --max-width: 1680px;
+  --max-width: 100%;
 
   /* Typography Scale Fluid Clamps */
-  --font-display-xl: clamp(3.5rem, 10vw + 1rem, 12rem);
-  --font-display: clamp(2.5rem, 6vw, 6.5rem);
-  --font-h1: clamp(2rem, 4vw, 4rem);
-  --font-h2: clamp(1.5rem, 2.5vw, 2.5rem);
-  --font-h3: clamp(1.125rem, 1.4vw, 1.5rem);
+  --font-display-xl: clamp(3.5rem, 12vw + 1rem, 14rem);
+  --font-display: clamp(2.5rem, 7vw, 8rem);
+  --font-h1: clamp(2rem, 5vw, 5rem);
+  --font-h2: clamp(1.5rem, 3vw, 3rem);
+  --font-h3: clamp(1.125rem, 1.6vw, 1.8rem);
   --font-body-lg: 1.125rem;
   --font-body: 1rem;
   --font-caption: 0.875rem;

@@ -16,7 +16,7 @@ export const StatementSection: React.FC<StatementSectionProps> = ({
   return (
     <section
       id="statement"
-      className="w-full max-w-[1680px] mx-auto px-6 md:px-12 py-32 md:py-48 border-b border-[var(--line)] space-y-16"
+      className="w-full container-full mx-auto py-24 md:py-36 border-b border-[var(--line)] space-y-16"
     >
       <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <span>02 // THE PRINCIPLE</span>

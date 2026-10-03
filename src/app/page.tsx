@@ -5,6 +5,7 @@ import { NavShell } from "@/components/navigation/NavShell";
 import { FooterShell } from "@/components/navigation/FooterShell";
 import { RuhHero } from "@/components/hero/RuhHero";
 import { CleanPortfolioGrid } from "@/components/home/CleanPortfolioGrid";
+import { LaptopTimelineShowcase } from "@/components/home/LaptopTimelineShowcase";
 import { AboutServicesSection } from "@/components/home/AboutServicesSection";
 import { ContactCtaSection } from "@/components/home/ContactCtaSection";
 
@@ -65,31 +66,34 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-x-hidden w-full">
       <CustomCursor />
       <NavShell brandName={site.brandName} />
 
-      <main className="space-y-0">
-        {/* 1. Clean Minimalist Hero */}
+      <main className="space-y-0 w-full">
+        {/* 1. Cinematic Fullscreen Hero with 3D WebGL Canvas */}
         <RuhHero brandName={site.brandName} tagline={site.tagline} />
 
-        {/* 2. Clean Portfolio Showcase Grid */}
+        {/* 2. Full-Display Portfolio Showcase Grid */}
         <CleanPortfolioGrid projects={projects} />
 
-        {/* 3. About & Services Section */}
+        {/* 3. Interactive 3D Laptop Timeline Showcase */}
+        <LaptopTimelineShowcase />
+
+        {/* 4. About & Services Section */}
         <AboutServicesSection
           founderName={site.founderName}
           founderBio={site.founderBio}
         />
 
-        {/* 4. Contact & Inquiries Banner */}
+        {/* 5. Contact & Inquiries Banner */}
         <ContactCtaSection
           contactEmail={site.contactEmail}
           brandName={site.brandName}
         />
       </main>
 
-      {/* 5. Minimalist Clean Footer */}
+      {/* 6. Minimalist Clean Footer */}
       <FooterShell
         brandName={site.brandName}
         closingHeadline={site.footerClosing}

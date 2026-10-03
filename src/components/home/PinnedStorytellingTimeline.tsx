@@ -49,12 +49,12 @@ export const PinnedStorytellingTimeline: React.FC = () => {
 
   return (
     <section id="pipeline" className="w-full bg-[var(--bg)] border-b border-[var(--line)] py-32 md:py-48 space-y-24">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
+      <div className="container-full mx-auto flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <span>04 // TIMELINE STORYTELLING SEQUENCE</span>
         <span>STEP-BY-STEP CONFORM</span>
       </div>
 
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="container-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         {/* Left Side: Phase Selectors */}
         <div className="lg:col-span-5 space-y-4">
           {phases.map((phase, idx) => {

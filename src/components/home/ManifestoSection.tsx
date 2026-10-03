@@ -7,7 +7,7 @@ import { LinkUnderline } from "@/components/ui/LinkUnderline";
 export const ManifestoSection: React.FC = () => {
   return (
     <section id="manifesto" className="w-full bg-[var(--bg)] border-b border-[var(--line)] py-32 md:py-48">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 space-y-24">
+      <div className="container-full mx-auto space-y-24">
         {/* Top Header Tag */}
         <div className="flex justify-between items-baseline font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
           <span>02 // THE MANIFESTO</span>

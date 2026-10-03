@@ -50,4 +50,29 @@
   .font-display {
     font-family: var(--font-display), serif;
   }
+
+  /* Fullscreen Edge-to-Edge Container Utility */
+  .container-full {
+    width: 100%;
+    max-width: 100%;
+    padding-left: clamp(1rem, 4vw, 4.5rem);
+    padding-right: clamp(1rem, 4vw, 4.5rem);
+  }
+
+  /* Custom Sleek Scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-sunken);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(201, 185, 154, 0.25);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 185, 154, 0.5);
+  }
 }
+

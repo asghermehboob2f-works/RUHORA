@@ -29,7 +29,7 @@ export default function DesignSystemPage() {
 
       <NavShell />
 
-      <main className="max-w-[1440px] mx-auto px-6 md:px-12 pt-36 pb-32 space-y-32">
+      <main className="container-full mx-auto pt-36 pb-32 space-y-32">
         {/* Intro Header */}
         <section id="tokens" className="space-y-4 border-b border-[var(--line)] pb-12">
           <div className="flex items-center gap-2">

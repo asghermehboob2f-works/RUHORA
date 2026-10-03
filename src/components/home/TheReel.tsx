@@ -24,7 +24,7 @@ export const TheReel: React.FC<{ projects: ReelProject[] }> = ({ projects }) => 
 
   return (
     <section id="reel" className="w-full bg-[var(--bg)] border-b border-[var(--line)] py-24 md:py-36 space-y-32">
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
+      <div className="container-full mx-auto flex flex-col md:flex-row md:items-baseline justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--text-faint)] border-b border-[var(--line)] pb-4">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--signal)] animate-pulse" />
           <span className="text-[var(--text)] font-semibold">03 // THE REEL</span>
@@ -39,7 +39,7 @@ export const TheReel: React.FC<{ projects: ReelProject[] }> = ({ projects }) => 
           return (
             <div
               key={project.id}
-              className="max-w-[1680px] mx-auto px-6 md:px-12 space-y-8 group"
+              className="container-full mx-auto space-y-8 group"
             >
               {/* Project Header Row */}
               <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 font-mono text-xs border-b border-[var(--line)] pb-4">
